@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Educación Financiera
+  </title>
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --panel:#111827;     /* gray-900 */
+      --muted:#334155;     /* slate-600 */
+      --accent:#22d3ee;    /* cyan-400 */
+      --accent-2:#a78bfa;  /* violet-400 */
+      --text:#e5e7eb;      /* gray-200 */
+      --text-dim:#cbd5e1;  /* slate-300 */
+      --border:#1f2937;    /* gray-800 */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      background:linear-gradient(180deg, #0b1224 0%, #0f172a 60%);
+      color:var(--text);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin:0 auto; padding:0 1rem}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(15,23,42,.75);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: .9rem 0;
+      gap:1rem;
+    }
+    .brand{display:flex; align-items:center; gap:.7rem; font-weight:700}
+    .logo {
+  width: 40px; /* ajusta el tamaño */
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden; /* para que el logo no sobresalga */
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* que se ajuste bien */
+}
+
+    nav ul{list-style:none; display:flex; gap:.3rem; margin:0; padding:0}
+    nav a{
+      padding:.55rem .85rem; border-radius:999px; font-weight:600; letter-spacing:.2px; font-size:.95rem;
+      border:1px solid transparent;
+    }
+    nav a[aria-current="page"], nav a:hover{
+      background:rgba(34,211,238,.12); border-color:rgba(34,211,238,.35);
+    }
+
+    /* Layout */
+    main{padding:2rem 0 3rem}
+    section[hidden]{display:none !important}
+
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.3fr 1fr; gap:2rem; align-items:center;
+      padding:2rem; border:1px solid var(--border); border-radius:1.25rem; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    }
+    .kicker{color:var(--accent); font-weight:700; letter-spacing:.4px; font-size:.9rem}
+    h1{margin:.5rem 0 0; font-size:2.1rem}
+    .lead{color:var(--text-dim); margin:1rem 0 0; line-height:1.6}
+
+    .cards {
+  display: grid;
+  grid-template-columns: 1fr; /* Solo 1 columna */
+  gap: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column; /* Todo en vertical dentro de la tarjeta */
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+
+.card h3 {
+  margin: 0;
+}
+
+.badge {
+  min-width: 90px; /* ancho fijo para la etiqueta */
+  text-align: center;
+  background-color: #182a53;
+}
+
+.card summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* Quitar el triangulito default */
+.card summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Contenedor animado */
+.card .content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+/* Cuando el details está abierto */
+.card[open] .content {
+  max-height: 500px; /* un valor suficientemente grande */
+  opacity: 1;
+}
+
+
+
+
+    /* Guía */
+    .grid{
+      margin-top:1rem; display:grid; gap:1.2rem; grid-template-columns: 260px 1fr; align-items:start
+    }
+    .panel{background:var(--panel); border:1px solid var(--border); border-radius:1rem; padding:1rem}
+    .toc{position:sticky; top:86px}
+    .toc h3{margin:.2rem 0 .6rem}
+    .toc ul{list-style:none; padding:0; margin:0; display:grid; gap:.4rem}
+    .toc a{display:block; padding:.5rem .65rem; border-radius:.6rem; border:1px dashed var(--border); color:var(--text-dim)}
+    .toc a:hover{border-style:solid}
+
+    .content h2{margin:.2rem 0 .2rem}
+    .placeholder{
+      border:1px dashed var(--muted); border-radius:.8rem; padding:1rem; color:var(--text-dim);
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 10px, rgba(255,255,255,.035) 10px, rgba(255,255,255,.035) 20px);
+    }
+    .editable{outline:none}
+
+    /* Comunidad */
+    .list{display:grid; gap:.8rem}
+    .item{display:flex; gap:1rem; align-items:flex-start}
+    .avatar{width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); opacity:.9}
+    .meta{font-size:.85rem; color:var(--text-dim)}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border); color:var(--text-dim); padding:1.5rem 0;}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .cards{grid-template-columns: repeat(2, 1fr)}
+      .grid{grid-template-columns:1fr}
+      .toc{position:static}
+    }
+    @media (max-width: 520px){
+      nav ul{flex-wrap:wrap}
+      .cards{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo"> <img src="pino.png" alt="Logo Educación Financiera"> </div>
+        <span>Educación Financiera</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#/inicio" data-route-link aria-current="page">Inicio</a></li>
+          <li><a href="#/guia" data-route-link>Guía</a></li>
+          <li><a href="#/comunidad" data-route-link>Comunidad</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- INICIO -->
+    <section data-route="inicio">
+      <div class="hero">
+        <div>
+          <span class="kicker">¿Qué conoces acerca de la educación financiera?</span>
+          <h1>Educación Financiera: Aprendiendo a manejar tu dinero</h1>
+          <p class="lead">
+            Recibiste alguna vez educación financiera en la escuela? ¿Sabes cómo hacer un presupuesto, ahorrar o invertir?
+            Aquí encontrarás recursos prácticos y consejos para mejorar tu relación con el dinero, sin complicaciones
+          </p>
+        </div>
+        <div class="panel">
+          <h3>¿Por qué lo hacemos?</h3>
+          <div class="placeholder editable" contenteditable="false" aria-label="Texto editable en Inicio">
+            Es importante que todos tengan acceso a educación financiera para tomar decisiones informadas sobre su dinero. Por eso, hemos creado este espacio donde podrás aprender conceptos básicos, hábitos de ahorro y cómo tomar decisiones financieras inteligentes.
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <details class="card">
+          <summary class="badge"> <h1>Conceptos</h1></summary>
+          <h3>¿Qué es el dinero?</h3>
+          <p class="meta">
+            El dinero es un medio de intercambio socialmente aceptado que facilita la compra y venta de bienes y servicios al funcionar como una unidad de cuenta que mide el valor de todo y como un depósito de valor que permite transferir poder de compra al futuro. Sus propiedades clave, como la divisibilidad, durabilidad, portabilidad y una oferta controlada, le permiten cumplir estas funciones de manera eficiente, lo que lo convierte en una herramienta fundamental para el desarrollo económico y la organización de la sociedad, reemplazando la complejidad del trueque con un sistema simple y universal basado en la confianza en su valor.
+            <img src="Dinero.jpg" alt="Dinero" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+        </p>
+          <h3>¿Qué es un Presupuesto Personal?</h3>
+          <p class="meta">
+            Un presupuesto personal es un plan financiero detallado que te permite hacer un seguimiento de tus ingresos y gastos durante un período de tiempo determinado, generalmente un mes. Su objetivo principal es ayudarte a entender de dónde proviene tu dinero y a dónde va, dándote el control para tomar decisiones informadas sobre tus finanzas, como ahorrar para metas futuras, reducir deudas o ajustar tus hábitos de gasto. En esencia, es una herramienta clave para alcanzar la estabilidad financiera al alinear tus hábitos de consumo con tus objetivos económicos.
+          <img src="Presupuesto.jpg" alt="Presupuesto" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+        </p>
+          <h3>¿Qué es el Ahorro?</h3>
+          <p class="meta">
+            El ahorro es la porción de tus ingresos que no gastas en el presente, sino que la guardas para usarla en el futuro. No es solo lo que te sobra, sino una decisión consciente y proactiva de reservar una parte de tu dinero para alcanzar metas específicas, como un viaje, la compra de una casa, la educación o simplemente para crear un fondo de emergencia que te brinde seguridad financiera. El ahorro es la base para construir un patrimonio y lograr la libertad económica a largo plazo.
+            <img src="Ahorro.jpeg" alt="Ahorro" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+          <h3>¿Qué es la Inversión?</h3>
+          <p class="meta">
+            La inversión es la acción de destinar tu dinero a una actividad o activo, como acciones, bonos, bienes raíces o un negocio, con la expectativa de que genere un rendimiento o gane valor con el tiempo. A diferencia del ahorro, que simplemente guarda el dinero, la inversión busca poner ese dinero a trabajar para que crezca, asumiendo un nivel de riesgo calculado con el objetivo de obtener ganancias futuras. Es una forma de construir riqueza a largo plazo y de hacer que tu dinero no solo mantenga su valor, sino que lo multiplique.
+            <img src="Inversión.png" alt="Inversión" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+
+        </details>
+        <details class="card">
+          <summary class="badge"><h1>Hábitos Financieros Saludables</h1></summary>
+          <h3>Presupuesto</h3>
+          <p class="meta">
+            Un presupuesto es un hábito financiero saludable porque te permite tomar el control total de tu dinero en lugar de que este te controle a ti. Al monitorear y planificar tus ingresos y gastos, un presupuesto actúa como una hoja de ruta que te guía hacia tus metas financieras, ya sea salir de deudas, crear un fondo de emergencia o ahorrar para un objetivo a largo plazo. Este simple acto de organización te da la claridad y la confianza necesarias para tomar decisiones financieras inteligentes, evitar gastos impulsivos y vivir con más tranquilidad. En esencia, un presupuesto convierte la incertidumbre financiera en un plan de acción concreto y empoderador.
+            <img src="Presupuesto_habito.jpg" alt="Presupuesto" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+          <h3>Ahorro</h3>
+          <p class="meta"> 
+            El ahorro es un hábito financiero saludable porque te da la seguridad y la libertad para afrontar cualquier imprevisto de la vida sin tener que endeudarte. En lugar de vivir al día, ahorrar te permite construir un colchón de seguridad que te protege de emergencias como la pérdida de empleo o un gasto médico inesperado. Este simple acto de reservar una parte de tus ingresos te empodera, reduciendo el estrés financiero y dándote la tranquilidad para perseguir tus sueños, ya sea un viaje, la educación o una jubilación cómoda. El ahorro convierte la incertidumbre en una sensación de control sobre tu futuro.
+          <img src="Ahorro_habito.jpeg" alt="Ahorro" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+          <h3>Paga tus deudas a tiempo</h3>
+          <p class="meta">
+            Este es uno de los hábitos más importantes. Pagar las facturas, tarjetas de crédito y préstamos puntualmente no solo te ayuda a evitar cargos por mora, sino que también mejora tu historial crediticio. Un buen historial te abre puertas a mejores tasas de interés en futuros préstamos, lo que te ahorra miles de pesos a largo plazo.
+            <img src="deudas.png" alt="Deudas" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+          <h3>Diversifica tus ingresos</h3>
+          <p class="metas">
+            No depender de una sola fuente de ingresos te da más seguridad y estabilidad. Puedes explorar opciones como trabajos freelance, un negocio secundario, o inversiones que generen ingresos pasivos. Este hábito reduce el riesgo y te da más libertad financiera.
+            <img src="diversificar_ingresos.jpg" alt="Diversificar Ingresos" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+        </details>
+        <details class="card">
+          <summary class="badge"><h1>Ahorro</h1></summary>
+          <p class="meta"> El ahorro es la porción de tus ingresos que no se destina al consumo inmediato y se reserva para un uso futuro. Es una decisión consciente de posponer la gratificación actual para lograr una meta a largo plazo, crear un fondo de emergencia o simplemente acumular riqueza. No es lo que te sobra al final del mes, sino una cantidad que se separa al recibir tus ingresos, siguiendo el principio de "pagarse a uno mismo primero".
+          </p>
+          <h3>Fondo de emergencia</h3>
+          <p class="meta">
+            Es el más importante y prioritario. Consiste en construir un fondo para cubrir gastos inesperados, como la pérdida de empleo, una emergencia médica o reparaciones del hogar o del auto. Lo ideal es tener ahorrados entre 3 y 6 meses de tus gastos básicos. Este ahorro debe ser de fácil acceso (en una cuenta bancaria a la vista).
+            <img src="fondo_emergencia.webp" alt="Fondo de Emergencia" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          </p>
+          <h3>Beneficios del Ahorro</h3>
+          <ul>
+            <li>Seguridad Financiera: Tener un fondo de ahorro te brinda tranquilidad al saber que estás preparado para cualquier imprevisto sin tener que recurrir a deudas.</li>
+            <li>Logro de Metas: El ahorro es el camino directo para hacer realidad tus sueños, desde viajar hasta comprar un auto.</li>
+            <li>Reducción del Estrés: Un colchón financiero reduce la ansiedad y la preocupación por el dinero, permitiéndote vivir una vida más relajada.</li>
+            <li>Disciplina y Hábitos Saludables: El acto de ahorrar de manera constante fortalece tu autodisciplina, un hábito que se puede aplicar a otras áreas de tu vida.</li>
+            <li>Oportunidad de Inversión: El ahorro es el paso previo a la inversión. Al acumular un capital, puedes empezar a invertir para que tu dinero trabaje para ti.</li>
+          </ul>
+          <h3>Desventajas del Ahorro</h3>
+          <ul> 
+          <li>Pérdida de Poder Adquisitivo por Inflación: Si el dinero se guarda en una cuenta que no genera intereses (o muy pocos), la inflación puede reducir su valor con el tiempo. Por ejemplo, si la inflación es del 5%, el dinero que ahorraste hoy tendrá un 5% menos de poder de compra en un año.</li>
+          <li>Costo de Oportunidad: Al decidir ahorrar, estás renunciando a gastar ese dinero en algo más. La oportunidad perdida de disfrutar de un bien o servicio es el "costo de oportunidad".</li>
+          <li>Tasa de Interés Baja: Las cuentas de ahorro tradicionales a menudo ofrecen tasas de interés muy bajas, lo que no ayuda a que tu dinero crezca significativamente. Esto es lo que lleva a muchas personas a considerar la inversión como una opción complementaria.</li>
+          <li>Tentación de Gastar: La facilidad de acceso al dinero ahorrado puede ser una tentación para utilizarlo en compras impulsivas o no esenciales.</li>
+          </ul>
+        </details>
+        <details class="card">
+          <summary class="badge"><h1>Tipos de Decisiones Financieras</h1></summary>
+          <h3>Decisiones de consumo</h3>
+          <p class="meta"> Son las elecciones diarias sobre cómo gastamos nuestro dinero. ¿Comprar un café caro o prepararlo en casa? ¿Salir a comer o cocinar? Estas pequeñas decisiones, sumadas, tienen un gran impacto en nuestro presupuesto. Una buena decisión de consumo implica diferenciar entre necesidades y deseos.
+          </p>
+          <h3>Decisiones de ahorro</h3>
+          <p class="meta"> Se refieren a la elección de reservar una porción de nuestros ingresos en lugar de gastarla. Esto incluye decidir cuánto, con qué frecuencia y en qué tipo de cuenta ahorrar. La decisión más inteligente aquí es automatizar el ahorro, destinando una parte de tus ingresos a una cuenta separada tan pronto como los recibas.
+          </p>
+          <h3>Decisiones de inversión</h3>
+          <p class="meta"> Implican el uso de ahorros para adquirir activos que generen un retorno. Esto puede incluir la compra de acciones, bonos, bienes raíces o iniciar un negocio. Una buena decisión de inversión considera el riesgo, el retorno esperado y el horizonte temporal.
+          </p>
+          <h3>Decisiones de endeudamiento</h3>
+          <p class="meta"> Implican la elección de utilizar crédito o préstamos para financiar compras o inversiones. Esto incluye decidir cuándo es apropiado endeudarse, cuánto pedir prestado y cómo planificar el pago de la deuda. Una buena decisión de endeudamiento considera la tasa de interés, el plazo del préstamo y la capacidad de pago.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- GUÍA -->
+    <section data-route="guia" hidden>
+      <div class="grid">
+        <aside class="panel toc">
+          <h3>Contenido de la guía</h3>
+          <ul>
+            <li><a href="#" tabindex="0">¿Qué es la educación financiera?</a></li>
+            <li><a href="#" tabindex="0">Cómo hacer un presupuesto</a></li>
+            <li><a href="#" tabindex="0">Ahorro: corto vs. largo plazo</a></li>
+            <li><a href="#" tabindex="0">Deudas: buenas y malas</a></li>
+            <li><a href="#" tabindex="0">Introducción a invertir</a></li>
+          </ul>
+        </aside>
+
+        <div class="panel content">
+          <h2>Guía paso a paso</h2>
+          <p class="meta">Este es el cuerpo principal donde colocarás tus explicaciones.</p>
+
+          <h3>1) ¿Qué es la educación financiera?</h3>
+          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Qué es la educación financiera">
+            Escribe aquí la definición, ejemplos cotidianos y por qué es útil en la vida diaria.
+          </div>
+
+          <h3>2) Presupuesto básico</h3>
+          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Presupuesto básico">
+            Añade aquí una plantilla rápida: ingresos, gastos fijos, variables y ahorro.
+          </div>
+
+          <h3>3) Ahorro & metas</h3>
+          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Ahorro y metas">
+            Describe metas SMART y el porcentaje sugerido para ahorrar.
+          </div>
+
+          <h3>4) Deuda responsable</h3>
+          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Deuda responsable">
+            Explica tasa de interés, pago mínimo vs. pago total, y riesgos de sobreendeudarse.
+          </div>
+
+          <h3>5) Primeros pasos para invertir</h3>
+          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Primeros pasos para invertir">
+            Aclara conceptos como riesgo, retorno, diversificación y horizonte de tiempo.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMUNIDAD -->
+    <section data-route="comunidad" hidden>
+      <div class="panel">
+        <h2>Comunidad</h2>
+        <p class="meta">Espacio pensado para compartir dudas, tips y experiencias.</p>
+        <div class="list">
+          <div class="item">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Hilo de ejemplo:</strong> ¿Cómo organizan su presupuesto los estudiantes?
+              <div class="meta">Última actividad: 2 min — 4 respuestas</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Encuesta rápida:</strong> ¿Ahorras algo de tus ingresos? ¿Por qué?
+              <div class="meta">Participa para ver resultados</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Eventos:</strong> Taller "Presupuesto 101" — viernes 5:00 p.m.
+              <div class="meta">Gratis — Cupo limitado</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="placeholder editable" style="margin-top:1rem" contenteditable="true" aria-label="Caja editable para Comunidad">
+          Escribe aquí reglas de la comunidad, enlaces o un mensaje de bienvenida.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>© <span id="year"></span> Educación Financiera • Maquetación demo
+        • <a href="#/inicio">Inicio</a> · <a href="#/guia">Guía</a> · <a href="#/comunidad">Comunidad</a></small>
+    </div>
+  </footer>
+
+  <script>
+    // Router mínimo por hash (simula páginas: Inicio, Guía, Comunidad)
+    const routes = ["inicio","guia","comunidad"];
+    const sections = [...document.querySelectorAll('section[data-route]')];
+    const navLinks = [...document.querySelectorAll('[data-route-link]')];
+
+    function setActive(route){
+      sections.forEach(s => s.hidden = s.dataset.route !== route);
+      navLinks.forEach(a => {
+        const target = a.getAttribute('href').replace('#/','');
+        a.setAttribute('aria-current', target === route ? 'page' : 'false');
+      });
+    }
+
+    function onHashChange(){
+      const hash = (location.hash || '#/inicio').replace('#/','');
+      const route = routes.includes(hash) ? hash : 'inicio';
+      setActive(route);
+    }
+
+    window.addEventListener('hashchange', onHashChange);
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+      if(!location.hash){ location.hash = '#/inicio'; }
+      onHashChange();
+    });
+  </script>
+</body>
+</html>
