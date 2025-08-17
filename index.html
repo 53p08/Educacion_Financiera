@@ -168,6 +168,12 @@
     }
     @media (max-width: 520px){
       nav ul{flex-wrap:wrap}
+      nav ul {
+        flex-wrap: wrap; /* permite que los links bajen de fila */
+        justify-content: center; /* centra los links */}
+      nav a {
+        flex: 1 1 100%; /* ocupa toda la fila */
+        text-align: center;}
       .cards{grid-template-columns: 1fr}
     }
   </style>
@@ -418,4 +424,5 @@
   </script>
 </body>
 </html>
+
 
