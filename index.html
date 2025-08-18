@@ -5,178 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Educación Financiera
   </title>
-  <style>
-    :root{
-      --bg:#0f172a;        /* slate-900 */
-      --panel:#111827;     /* gray-900 */
-      --muted:#334155;     /* slate-600 */
-      --accent:#22d3ee;    /* cyan-400 */
-      --accent-2:#a78bfa;  /* violet-400 */
-      --text:#e5e7eb;      /* gray-200 */
-      --text-dim:#cbd5e1;  /* slate-300 */
-      --border:#1f2937;    /* gray-800 */
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif;
-      background:linear-gradient(180deg, #0b1224 0%, #0f172a 60%);
-      color:var(--text);
-    }
-    a{color:inherit; text-decoration:none}
-    .container{max-width:1100px; margin:0 auto; padding:0 1rem}
-
-    /* Header */
-    header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(15,23,42,.75);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--border);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: .9rem 0;
-      gap:1rem;
-    }
-    .brand{display:flex; align-items:center; gap:.7rem; font-weight:700}
-    .logo {
-  width: 40px; /* ajusta el tamaño */
-  height: 40px;
-  border-radius: 8px;
-  overflow: hidden; /* para que el logo no sobresalga */
-}
-
-.logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* que se ajuste bien */
-}
-
-    nav ul{list-style:none; display:flex; gap:.3rem; margin:0; padding:0}
-    nav a{
-      padding:.55rem .85rem; border-radius:999px; font-weight:600; letter-spacing:.2px; font-size:.95rem;
-      border:1px solid transparent;
-    }
-    nav a[aria-current="page"], nav a:hover{
-      background:rgba(34,211,238,.12); border-color:rgba(34,211,238,.35);
-    }
-
-    /* Layout */
-    main{padding:2rem 0 3rem}
-    section[hidden]{display:none !important}
-
-    /* Hero */
-    .hero{
-      display:grid; grid-template-columns: 1.3fr 1fr; gap:2rem; align-items:center;
-      padding:2rem; border:1px solid var(--border); border-radius:1.25rem; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
-    }
-    .kicker{color:var(--accent); font-weight:700; letter-spacing:.4px; font-size:.9rem}
-    h1{margin:.5rem 0 0; font-size:2.1rem}
-    .lead{color:var(--text-dim); margin:1rem 0 0; line-height:1.6}
-
-    .cards {
-  display: grid;
-  grid-template-columns: 1fr; /* Solo 1 columna */
-  gap: 1rem;
-}
-
-.card {
-  display: flex;
-  flex-direction: column; /* Todo en vertical dentro de la tarjeta */
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1rem;
-}
-
-
-.card h3 {
-  margin: 0;
-}
-
-.badge {
-  min-width: 90px; /* ancho fijo para la etiqueta */
-  text-align: center;
-  background-color: #182a53;
-}
-
-.card summary {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-/* Quitar el triangulito default */
-.card summary::-webkit-details-marker {
-  display: none;
-}
-
-/* Contenedor animado */
-.card .content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-
-/* Cuando el details está abierto */
-.card[open] .content {
-  max-height: 500px; /* un valor suficientemente grande */
-  opacity: 1;
-}
-
-
-
-
-    /* Guía */
-    .grid{
-      margin-top:1rem; display:grid; gap:1.2rem; grid-template-columns: 260px 1fr; align-items:start
-    }
-    .panel{background:var(--panel); border:1px solid var(--border); border-radius:1rem; padding:1rem}
-    .toc{position:sticky; top:86px}
-    .toc h3{margin:.2rem 0 .6rem}
-    .toc ul{list-style:none; padding:0; margin:0; display:grid; gap:.4rem}
-    .toc a{display:block; padding:.5rem .65rem; border-radius:.6rem; border:1px dashed var(--border); color:var(--text-dim)}
-    .toc a:hover{border-style:solid}
-
-    .content h2{margin:.2rem 0 .2rem}
-    .placeholder{
-      border:1px dashed var(--muted); border-radius:.8rem; padding:1rem; color:var(--text-dim);
-      background: repeating-linear-gradient(45deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 10px, rgba(255,255,255,.035) 10px, rgba(255,255,255,.035) 20px);
-    }
-    .editable{outline:none}
-
-    /* Comunidad */
-    .list{display:grid; gap:.8rem}
-    .item{display:flex; gap:1rem; align-items:flex-start}
-    .avatar{width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); opacity:.9}
-    .meta{font-size:.85rem; color:var(--text-dim)}
-
-    /* Footer */
-    footer{border-top:1px solid var(--border); color:var(--text-dim); padding:1.5rem 0;}
-
-    /* Responsive */
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-      .cards{grid-template-columns: repeat(2, 1fr)}
-      .grid{grid-template-columns:1fr}
-      .toc{position:static}
-    }
-    @media (max-width: 520px){
-      nav ul{flex-wrap:wrap}
-      nav ul {
-        flex-wrap: wrap; /* permite que los links bajen de fila */
-        justify-content: center; /* centra los links */}
-      nav a {
-        flex: 1 1 100%; /* ocupa toda la fila */
-        text-align: center;}
-      .cards{grid-template-columns: 1fr}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
@@ -250,12 +79,12 @@
           <h3>Ahorro</h3>
           <p class="meta"> 
             El ahorro es un hábito financiero saludable porque te da la seguridad y la libertad para afrontar cualquier imprevisto de la vida sin tener que endeudarte. En lugar de vivir al día, ahorrar te permite construir un colchón de seguridad que te protege de emergencias como la pérdida de empleo o un gasto médico inesperado. Este simple acto de reservar una parte de tus ingresos te empodera, reduciendo el estrés financiero y dándote la tranquilidad para perseguir tus sueños, ya sea un viaje, la educación o una jubilación cómoda. El ahorro convierte la incertidumbre en una sensación de control sobre tu futuro.
-          <img src="Ahorro_habito.jpeg" alt="Ahorro" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+          <img src="ahorro2.jpeg" alt="Ahorro" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
           </p>
           <h3>Paga tus deudas a tiempo</h3>
           <p class="meta">
             Este es uno de los hábitos más importantes. Pagar las facturas, tarjetas de crédito y préstamos puntualmente no solo te ayuda a evitar cargos por mora, sino que también mejora tu historial crediticio. Un buen historial te abre puertas a mejores tasas de interés en futuros préstamos, lo que te ahorra miles de pesos a largo plazo.
-            <img src="deudas.png" alt="Deudas" style="display:block; margin:0.5rem auto; width:75%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+            <img src="deudas.png" alt="Deudas" style="display:block; margin:0.5rem auto; width:25%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
           </p>
           <h3>Diversifica tus ingresos</h3>
           <p class="metas">
@@ -312,42 +141,33 @@
         <aside class="panel toc">
           <h3>Contenido de la guía</h3>
           <ul>
-            <li><a href="#" tabindex="0">¿Qué es la educación financiera?</a></li>
-            <li><a href="#" tabindex="0">Cómo hacer un presupuesto</a></li>
-            <li><a href="#" tabindex="0">Ahorro: corto vs. largo plazo</a></li>
-            <li><a href="#" tabindex="0">Deudas: buenas y malas</a></li>
-            <li><a href="#" tabindex="0">Introducción a invertir</a></li>
+            <li><a href="#" tabindex="0">¿Qué es el dinero?</a></li>
+            <li><a href="#" tabindex="0">¿Qué es un presupuesto?</a></li>
+            <li><a href="#" tabindex="0">¿Qué es el ahorro?</a></li>
+            <li><a href="#" tabindex="0">¿Qué son las deudas?</a></li>
+            <li><a href="#" tabindex="0">¿Qué es invertir?e</a></li>
           </ul>
         </aside>
 
         <div class="panel content">
-          <h2>Guía paso a paso</h2>
-          <p class="meta">Este es el cuerpo principal donde colocarás tus explicaciones.</p>
+          <h2>Guía sobre los temas relevantes dentro de la Educación Financiera</h2>
+          <p class="meta">Para no conformarnos únicamente con las charlas como grupo se decidió relizar una guía. En esta se abordarán los conceptos clave de la educación financiera. Expandiremos la información anterior, proporcionando ejemplos prácticos y recursos adicionales.</p>
 
-          <h3>1) ¿Qué es la educación financiera?</h3>
-          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Qué es la educación financiera">
-            Escribe aquí la definición, ejemplos cotidianos y por qué es útil en la vida diaria.
-          </div>
-
-          <h3>2) Presupuesto básico</h3>
-          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Presupuesto básico">
-            Añade aquí una plantilla rápida: ingresos, gastos fijos, variables y ahorro.
-          </div>
-
-          <h3>3) Ahorro & metas</h3>
-          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Ahorro y metas">
-            Describe metas SMART y el porcentaje sugerido para ahorrar.
-          </div>
-
-          <h3>4) Deuda responsable</h3>
-          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Deuda responsable">
-            Explica tasa de interés, pago mínimo vs. pago total, y riesgos de sobreendeudarse.
-          </div>
-
-          <h3>5) Primeros pasos para invertir</h3>
-          <div class="placeholder editable" contenteditable="true" aria-label="Sección editable: Primeros pasos para invertir">
-            Aclara conceptos como riesgo, retorno, diversificación y horizonte de tiempo.
-          </div>
+          <h1 style="text-align: center;">Nuestra Guía</h1>
+          <img src="Portada.jpg" alt="Portada de la guía" style="display:block; margin:0.1rem auto; width: 45%; border-radius:0.5rem; box-shadow:0 15px 12px rgba(0,0,0,.3)">
+          <p>
+            ________________________________________________________________________________________________________________________________
+          </p>
+          <p class="meta">Esta guía está diseñada para ser un recurso vivo, que se actualizará con el tiempo. Tu participación es clave: comparte tus ideas, preguntas y experiencias para enriquecer este contenido.
+            Contiene tanto la información básica como consejos prácticos para mejorar tu relación con el dinero. Desde cómo hacer un presupuesto efectivo hasta estrategias de ahorro e inversión, esta guía te proporcionará las herramientas necesarias para tomar decisiones financieras informadas.
+          </p>
+          <p class="meta">Recuerda que la educación financiera es un proceso continuo. No dudes en volver a esta guía cada vez que necesites refrescar tus conocimientos o buscar nuevas estrategias para mejorar tu situación financiera.</p>
+          <p>
+            ________________________________________________________________________________________________________________________________
+          </p>
+          <a href="manual.pdf" download="Guía_Educación_Financiera.pdf">
+            <h4 style="text-align:center;"> Descargar Guía Financiera</h4>
+          </a>
         </div>
       </div>
     </section>
@@ -355,34 +175,67 @@
     <!-- COMUNIDAD -->
     <section data-route="comunidad" hidden>
       <div class="panel">
-        <h2>Comunidad</h2>
-        <p class="meta">Espacio pensado para compartir dudas, tips y experiencias.</p>
+        <h2 style="text-align: center;">Comunidad de seminario</h2>
+        <p class="meta">Conoce al grupo de jóvenes detrás de todo este proyecto: Educación Financiera en los Jóvenes</p>
         <div class="list">
           <div class="item">
-            <div class="avatar" aria-hidden="true"></div>
             <div>
-              <strong>Hilo de ejemplo:</strong> ¿Cómo organizan su presupuesto los estudiantes?
-              <div class="meta">Última actividad: 2 min — 4 respuestas</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <strong>Encuesta rápida:</strong> ¿Ahorras algo de tus ingresos? ¿Por qué?
-              <div class="meta">Participa para ver resultados</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <strong>Eventos:</strong> Taller "Presupuesto 101" — viernes 5:00 p.m.
-              <div class="meta">Gratis — Cupo limitado</div>
-            </div>
-          </div>
-        </div>
+  <section id="sobre-nosotros" style="padding: 2rem 1rem;">
+  <!-- Bloque de foto y texto -->
+  <div class="sobre-nosotros" style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
+    <div class="texto" style="flex: 1 1 300px;">
+      <p class="meta">
+        Este grupo de jóvenes apasionados por la educación financiera se unió para crear un espacio donde todos puedan aprender a manejar su dinero de manera efectiva. Cada miembro aporta su perspectiva única y habilidades para hacer de este proyecto una realidad.
+      </p>
+    </div>
+    <div class="imagen" style="flex: 1 1 300px;">
+      <img src="nosotros.jpeg" alt="Equipo de Educación Financiera" style="width:100%; border-radius:0.5rem; box-shadow:0 10px 12px rgba(0,0,0,.3)">
+    </div>
+  </div>
 
-        <div class="placeholder editable" style="margin-top:1rem" contenteditable="true" aria-label="Caja editable para Comunidad">
-          Escribe aquí reglas de la comunidad, enlaces o un mensaje de bienvenida.
+  <!-- Bloque de integrantes -->
+  <div class="equipo" style="display: grid; grid-template-columns: repeat(5, 2fr); gap: 1rem;">
+    <div class="miembro">
+      <h3>Nancy Cardona</h3>
+      <p class="meta">Coordinadora</p>
+    </div>
+    <div class="miembro">
+      <h3>Luis Chávez</h3>
+      <p class="meta">Sub-Coordinador</p>
+    </div>
+    <div class="miembro">
+      <h3>Melanie Gracía</h3>
+      <p class="meta">Secretaria</p>
+    </div>
+    <div class="miembro">
+      <h3>Alison Gómez</h3>
+      <p class="meta">Integrante</p>
+    </div>
+    <div class="miembro">
+      <h3>Brayan Chun</h3>
+      <p class="meta">Integrante</p>
+    </div>
+    <div class="miembro">
+      <h3>Luz Fuentes</h3>
+      <p class="meta">Integrante</p>
+    </div>
+    <div class="miembro">
+      <h3>José Esteban</h3>
+      <p class="meta">Integrante</p>
+    </div>
+    <div class="miembro">
+      <h3>Angel Torres</h3>
+      <p class="meta">Integrante</p>
+    </div>
+    <div class="miembro">
+      <h3>Arturo Yaxón</h3>
+      <p class="meta">Integrante</p>
+    </div>
+  </div>
+</section>
+
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -390,7 +243,7 @@
 
   <footer>
     <div class="container">
-      <small>© <span id="year"></span> Educación Financiera • Maquetación demo
+      <small>© <span id="year"></span> Educación Financiera 
         • <a href="#/inicio">Inicio</a> · <a href="#/guia">Guía</a> · <a href="#/comunidad">Comunidad</a></small>
     </div>
   </footer>
@@ -424,5 +277,3 @@
   </script>
 </body>
 </html>
-
-
